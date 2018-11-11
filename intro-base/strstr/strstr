@@ -1,0 +1,37 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+my ($string,  $substring)= @ARGV;
+
+if (length($string)<length($substring))
+{die "Not correct";}
+ my $k=$#ARGV+1;
+
+if ($k<2 )
+{
+	die "Not enough arguments \n";
+}
+elsif ($k>2)
+{
+	die "Too many arguments \n";
+}
+else
+{
+
+my $loc =index($string,$substring);
+#}
+if ($loc==-1)
+{
+	warn "Not found\n";
+	exit 0;
+}
+else
+{
+my $newstr = substr($string, $loc);
+print "$loc \n";
+print "$newstr \n";
+}
+
+}
+
+

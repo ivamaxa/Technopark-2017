@@ -1,0 +1,39 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+my ($a, $b, $c)=@ARGV;
+
+if ($#ARGV<2 || $#ARGV>2)
+{
+	die "Bad arguments \n";
+}
+
+if ($a==0) 
+{
+	die "Not a quadratic equation \n";
+}
+
+my $D=($b*$b)-4*$a*$c;
+if ($D>0)
+{
+	my $x1=(-$b-sqrt($D))/(2*$a);
+    my $x2=(-$b+sqrt($D))/(2*$a);
+    #print "Answer: \n";
+    print "x1 = $x1 \n";
+    print "x2 =  $x2 \n";
+}
+elsif ($D<0)
+{
+	
+	my $alpha1=-$b/(2*$a);
+	my $beta1=sqrt(-$D)/(2*$a);
+	print "$alpha1+$beta1 i \n";
+    print "$alpha1-$beta1 i \n";
+	
+}
+else 
+{
+	my $x=-$b/(2*$a);
+	#print "Answer: \n";
+	print  "x = $x \n";
+}

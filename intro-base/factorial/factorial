@@ -1,0 +1,10 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+my $t=1;
+
+for (my $i=1; $i<($ARGV[0]+1); $i++)
+{
+	$t=$t*$i;
+}
+print "$t \n";

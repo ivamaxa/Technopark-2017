@@ -1,0 +1,47 @@
+#!/usr/bin/env perl
+use warnings;
+my $month = @ARGV;
+my $k=scalar @ARGV;
+
+if ( ($k!=0 )&& ($ARGV[0]>12))
+{die "Not correct \n";}
+
+if ( ($k!=0 ) && ($ARGV[0]<0))
+{die "Not correct \n";}
+
+my ($sec, $min, $hour, $mday, $mon, $year, $wday,$yday,$isdst) = localtime(time);
+$year=$year+1900;
+#my $r=$ARGV[0];
+if ($k==0)
+{ $tmon = $mon+1;}
+else {$tmon=$ARGV[0];}
+my @monnam = ("",
+" January", " February", " March", " April",
+" May", " June", " July", " August",
+"September", " October", " November", " December"
+);
+
+my @chmon = (0,31,28,31,30,31,30,31,31,30,31,30,31);
+if (($year-2016)%4==0)
+{
+$chmon[2] = 29 ;
+}
+
+print "\n\t$monnam[$tmon] $year\n\n Mon Tue Wed Thu Fri Sat Sun\n";
+
+my $st=0;
+for (my $i=1; $i<$tmon; $i++)
+{
+$st =$st+ $chmon[$i];
+}
+$st %= 7;
+for (my $i=0; $i<$st; $i++)
+{
+print "    ";
+}
+for (my $i=1; $i<=$chmon[$tmon]; $i++)
+{
+printf "%3d ", $i;
+if (($st+$i)%7==0) {print "\n";}
+}
+print "\n\n";

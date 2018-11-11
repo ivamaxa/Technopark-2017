@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+
+my @t;
+$t[0]=0;
+$t[1]=1;
+for (my $i=1; $i<($ARGV[0]+1);$i++)
+{
+   $t[$i+1]=$t[$i]+$t[$i-1];
+}
+
+
+print "$t[$ARGV[0]] \n";

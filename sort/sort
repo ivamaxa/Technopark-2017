@@ -1,0 +1,138 @@
+#!/usr/bin/env perl
+use 5.016;
+use warnings;
+use Getopt::Long;
+use Scalar::Util qw(looks_like_number);
+my ($kol, $nums, $reverse, $unique);
+my $parametr;
+my @col;
+my @t=<STDIN>;
+
+
+GetOptions ( 'kol=i' => \ $parametr , # numeric 
+             'nums' => \ $nums , 
+             'reverse' => \ $reverse,
+             'unique' => \$unique ) ;
+sub num_sort
+{
+	my @mas=@_;
+	my @par1; #par1-chislo
+	my @par2; #par2-bukva
+	for my $i (0 .. $#mas)   {#my $pr=$mas[$j]+0; 
+
+		if (not looks_like_number( $mas[$i]) )  {
+
+			push @par2, $mas[$i];
+		}
+		else {
+
+			push @par1, $mas[$i]}
+	}
+	@par1 = sort{$a <=> $b} @par1;
+	@par2 = sort{$a cmp $b} @par2;
+	push @par1, @par2;
+
+	return(@par1);
+}
+sub uniq
+{
+
+   my @mas = @_;
+   my %gr;
+   my @uni = grep {!$gr{$_}++} @mas;
+   return(@uni);
+}
+
+
+
+if (defined $parametr)  {
+	if( length($parametr)>0
+        &&
+        $parametr>0)   {
+		my $numpr = $parametr - 1;
+			for my $i (0 .. $#t)   {
+			$t[$i]=~ /(\S*\s+){$numpr}([\S]+)/; 
+            push @col, $2;
+            
+           #print "@col \n";
+        }
+
+#print @col;
+
+    	unless(defined $nums 
+    		   && 
+    		   defined $reverse
+               &&
+               defined $unique) {
+    		@col = sort @col;
+           # print @col;
+    	}
+    	if (defined $nums) {
+    		@col = num_sort (@col);
+        }
+        
+    
+       	my @otv;
+         for my $j (0 .. $#col)
+        {
+            
+            my $i = 0;
+            while ($i <= $#t)
+            {
+                $t[$i] =~ /(\S*\s+){$numpr}([\S]+)/;
+                
+                if ($col[$j] eq $2)
+                {
+                    push @otv, $t[$i];
+                    splice (@t,$i,1,);
+                  
+                }
+                $i++;
+            }
+        }
+#        print @otv;
+        
+
+        
+        if (defined $reverse ) {
+
+    	    @otv = reverse @otv;
+        }
+      
+    
+        if (defined $unique) {
+            @otv = uniq (@otv);
+        }
+        
+
+
+    print @otv;
+    }
+
+
+	
+
+	else {
+        die "Not correct argument";
+    }
+}
+
+
+
+else {
+    if (defined  $nums) {
+	   @t = num_sort(@t);
+    }
+    else {
+        @t=sort @t;
+    }
+
+    if ( defined $unique) {
+	   @t = uniq(@t);
+    }
+    if (defined $reverse) {
+	@t = reverse (@t);
+    }
+
+    print @t;
+}
